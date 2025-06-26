@@ -8,17 +8,17 @@ Przedmiot::Przedmiot(int id, QString nazwa)
 }
 
 // implementacja metod
-int getId() const
+int Przedmiot::getId() const
 {
     return przedmiotId;
 }
 
-QString getNazwa() const
+QString Przedmiot::getNazwa() const
 {
     return nazwa;
 }
 
-void setNazwa(QString nazwa);
+void Przedmiot::setNazwa(QString nazwa)
 {
     this -> nazwa = nazwa;
 }

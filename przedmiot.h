@@ -12,8 +12,6 @@ public:
     // konstruktor
     Przedmiot(int id, QString nazwa);
 
-    // metody
-
     // getters
     int getId() const;
     QString getNazwa() const;
