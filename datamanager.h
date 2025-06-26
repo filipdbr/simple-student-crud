@@ -23,13 +23,15 @@ public:
     void dodajStudenta(const Student& student);
     bool usunStudenta(int studentId);
     Student* znajdzStudenta(int studentId);
-    int wygenerujId() const;
+    int wygenerujIdStudenta() const;
 
     // przedmioty
     QList<Przedmiot> getPrzedmioty() const;
     void dodajPrzedmiot(const Przedmiot& przedmiot);
     bool usunPrzedmiot(int przedmiotId);
     Przedmiot* znajdzPrzedmiot(int przedmiotId);
+    int wygenerujIdPrzedmiotu() const;
+    bool czyIstnieje(QString nazwaPrzedmiotu) const;
 
     // oceny
     QList<Ocena> getOceny() const;

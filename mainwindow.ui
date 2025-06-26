@@ -21,7 +21,7 @@
        <enum>QTabWidget::TabPosition::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_student">
        <attribute name="title">
@@ -100,7 +100,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableWidget" name="subjectTable">
+         <widget class="QTableWidget" name="tabela_przedmioty">
           <property name="columnCount">
            <number>3</number>
           </property>
@@ -243,7 +243,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QTableWidget" name="summaryTable"/>
+         <widget class="QTableWidget" name="tabela_podsumowanie"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">

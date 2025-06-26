@@ -25,9 +25,9 @@ private slots:
     void on_pb_edytuj_student_clicked();
     void on_pb_usun_student_clicked();
 
-    /*
     // sloty dla panelu "Przedmioty"
     void on_pb_dodaj_przedmiot_clicked();
+    /*
     void on_pb_edytuj_przedmiot_clicked();
     void on_pb_usun_przedmiot_clicked();
 
@@ -40,12 +40,12 @@ private slots:
     void on_pb_eksport_clicked();
 
     // funkcje do odświeżania danych
-    void refreshTabelaPrzedmioty();
     void refreshTabelaOceny();
     void refreshListyRozwijane();
     void refreshPosumowanie();
     */
     void refreshTabelaStudenci();
+    void refreshTabelaPrzedmioty();
 
 private:
     Ui::MainWindow *ui;

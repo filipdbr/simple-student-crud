@@ -12,17 +12,22 @@ MainWindow::MainWindow(QWidget *parent)
     // wczytaj dane z plików csv przy starcie
     dataManager.wczytajDane();
 
-    // Ukryj domyślne nagłówki pionowe (numery wierszy)
+    // formatowanie dla zakładaki Studenci
     ui->tabWidget->setCurrentIndex(0); // ustaw domyślną zakładkę na pierwszą od lewej strony
     ui->tabela_studenci->verticalHeader()->setVisible(false); // usuń numerację wierszy
     ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
     ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
 
+    // formatowanie dla zakładaki Przedmioty
+    ui -> tabela_przedmioty -> verticalHeader()->setVisible(false); // usuń numerację wierszy
+    ui -> tabela_przedmioty -> horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
+    ui -> tabela_przedmioty -> horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
+
     // odśwież tabele przy starcie
     refreshTabelaStudenci();
+    refreshTabelaPrzedmioty();
 
     /*
-    refreshTabelaPrzedmioty();
     refreshTabelaOceny();
     refreshListyRozwijane();
     refreshPosumowanie();
@@ -65,7 +70,7 @@ void MainWindow::on_pb_dodaj_student_clicked()
     nazwisko = nazwisko.trimmed();
 
     // utwórz nowego studenta
-    Student nowyStudent(dataManager.wygenerujId(), imie, nazwisko);
+    Student nowyStudent(dataManager.wygenerujIdStudenta(), imie, nazwisko);
     dataManager.dodajStudenta(nowyStudent);
 
     // poinformuj użytkownika o wyniku
@@ -140,13 +145,38 @@ void MainWindow::on_pb_usun_student_clicked()
     return;
 }
 
-/*
+// funkcja dodaje przedmiot do listy przedmiotów
 void MainWindow::on_pb_dodaj_przedmiot_clicked()
 {
+    bool ok;
+    QString nazwaPrzedmiotu = QInputDialog::getText(this, "Tworzenie nowego przemiotu", "Wprowadź nazwę przedmiotu", QLineEdit::Normal, "Nazwa Przedmiotu", &ok);
+    if(!ok || nazwaPrzedmiotu.isEmpty())
+    {
+        if(ok && nazwaPrzedmiotu.isEmpty())
+        {
+            QMessageBox::warning(this, "Brak nazwy", "Nazwa przedmiotu nie może być pusta");
+        }
+        return;
+    }
 
+    // test czy taki przedmiot już istnieje
+    bool czyIstnieje = dataManager.czyIstnieje(nazwaPrzedmiotu);
+    if(czyIstnieje)
+    {
+        QMessageBox::warning(this, "Duplikat", "Taki przedmiot już istnieje, brak możliwości stworzenia duplikatu");
+        return;
+    }
+
+    // Tworzenie przedmiotu i dodanie do listy
+    Przedmiot nowyPrzedmiot(dataManager.wygenerujIdPrzedmiotu(), nazwaPrzedmiotu);
+    dataManager.dodajPrzedmiot(nowyPrzedmiot);
+
+    QMessageBox::information(this, "Sukces!", "Dodano nowy przedmiot: " + nowyPrzedmiot.getNazwa());
+
+    refreshTabelaPrzedmioty();
 }
 
-
+/*
 void MainWindow::on_pb_edytuj_przedmiot_clicked()
 {
 
@@ -201,15 +231,39 @@ void MainWindow::refreshTabelaStudenci()
 
         // Ustaw ID w pierwszej kolumnie
         QTableWidgetItem *idItem = new QTableWidgetItem(QString::number(student.getId()));
-        ui->tabela_studenci->setItem(i, 0, idItem);
+        ui -> tabela_studenci -> setItem(i, 0, idItem);
 
         // Ustaw Imię w drugiej kolumnie
         QTableWidgetItem *imieItem = new QTableWidgetItem(student.getImie());
-        ui->tabela_studenci->setItem(i, 1, imieItem);
+        ui -> tabela_studenci -> setItem(i, 1, imieItem);
 
         // Ustaw Nazwisko w trzeciej kolumnie
         QTableWidgetItem *nazwiskoItem = new QTableWidgetItem(student.getNazwisko());
-        ui->tabela_studenci->setItem(i, 2, nazwiskoItem);
+        ui -> tabela_studenci -> setItem(i, 2, nazwiskoItem);
     }
 }
 
+void MainWindow::refreshTabelaPrzedmioty()
+{
+    // wyszyść tabelę
+    ui -> tabela_przedmioty -> setRowCount(0);
+
+    // pobierz listę studentów
+    QList listaPrzedmiotow = dataManager.getPrzedmioty();
+
+    // ustaw nowy rozmiar tabeli na bazie długości listy studentów
+    ui -> tabela_przedmioty -> setRowCount(listaPrzedmiotow.size());
+
+    for(int i = 0; i < listaPrzedmiotow.size(); i++)
+    {
+        const Przedmiot& przedmiot = listaPrzedmiotow.at(i);
+
+        // ustaw ID w pierwszej kolumnie
+        QTableWidgetItem *idItem = new QTableWidgetItem(QString::number(przedmiot.getId()));
+        ui -> tabela_przedmioty -> setItem(i, 0, idItem);
+
+        // ustaw nazwę w drugiej kolumnie
+        QTableWidgetItem *nazwaItem = new QTableWidgetItem(przedmiot.getNazwa());
+        ui -> tabela_przedmioty -> setItem(i, 1, nazwaItem);
+    }
+}

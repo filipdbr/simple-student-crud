@@ -204,7 +204,8 @@ Student* DataManager::znajdzStudenta(int studentId)
     return nullptr;
 }
 
-int DataManager::wygenerujId() const
+// funkcja pomocnicza, generująca ID studenta
+int DataManager::wygenerujIdStudenta() const
 {
     int maxId = 0;
     for(const Student& student : studenci)
@@ -218,6 +219,33 @@ int DataManager::wygenerujId() const
 }
 
 // przedmioty - implementacje
+
+// wygeneruj ID przedmiotu
+int DataManager::wygenerujIdPrzedmiotu() const
+{
+    int maxId = 0;
+    for(const Przedmiot& przedmiot : przedmioty)
+    {
+        if(przedmiot.getId() > maxId)
+        {
+            maxId = przedmiot.getId();
+        }
+    }
+    return maxId + 1;
+}
+
+// sprawdź czy nazwa istnieje
+bool DataManager::czyIstnieje(QString nazwaPrzedmiotu) const
+{
+    for(const Przedmiot& przedmiot : przedmioty)
+    {
+        if(przedmiot.getNazwa().toUpper() == nazwaPrzedmiotu.toUpper())
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 // pobierz listę przedmiotów
 QList<Przedmiot> DataManager::getPrzedmioty() const
