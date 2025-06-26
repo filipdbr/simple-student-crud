@@ -12,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
     // wczytaj dane z plików csv przy starcie
     dataManager.wczytajDane();
 
+    // Ukryj domyślne nagłówki pionowe (numery wierszy)
+    ui->tabWidget->setCurrentIndex(0); // ustaw domyślną zakładkę na pierwszą od lewej strony
+    ui->tabela_studenci->verticalHeader()->setVisible(false); // usuń numerację wierszy
+    ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
+    ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
+
     // odśwież tabele przy starcie
     refreshTabelaStudenci();
 
@@ -113,15 +119,28 @@ void MainWindow::on_pb_edytuj_student_clicked()
 
 }
 
-/*
 void MainWindow::on_pb_usun_student_clicked()
 {
     bool ok;
-    QString studentId = QInputDialog::getInt(this, "Usuwanie studenta", "Podaj ID studenta do usunięcia", 0, 0, 5000, 1, &ok);
-    dataManager.studenci.removeAt(studentId);
+    int studentId = QInputDialog::getInt(this, "Usuwanie studenta", "Podaj ID studenta do usunięcia", 0, 0, 5000, 1, &ok);
+    if(!ok)
+    {
+        return;
+    }
+
+    bool usunieto = dataManager.usunStudenta(studentId);
+    if(!usunieto)
+    {
+        QMessageBox::warning(this, "Brak wyników", "Nie znaleziono studenta ID " + QString::number(studentId));
+        return;
+    }
+    QMessageBox::information(this, "Sukces", "Student został usunięty");
+
+    refreshTabelaStudenci();
+    return;
 }
 
-
+/*
 void MainWindow::on_pb_dodaj_przedmiot_clicked()
 {
 
