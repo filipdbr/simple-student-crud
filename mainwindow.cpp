@@ -70,16 +70,55 @@ void MainWindow::on_pb_dodaj_student_clicked()
     //refreshListyRozwijane();
 }
 
-/*
 void MainWindow::on_pb_edytuj_student_clicked()
 {
+    bool ok;
+    int studentId = QInputDialog::getInt(this, "Tryb edycji", "Podaj ID studenta do edycji", 0, 0, 5000, 1, &ok);
+    if(!ok)
+    {
+        return;
+    }
+
+    Student* studentDoEdycji = dataManager.znajdzStudenta(studentId);
+    if (!studentDoEdycji)
+    {
+        QMessageBox::warning(this, "Brak wyników", "Student o podanym ID nie został znaleziony.");
+        return;
+    }
+
+    QString noweImie = QInputDialog::getText(this, "Edycja studenta", "Podaj nowe imie: ", QLineEdit::Normal, studentDoEdycji->getImie(), &ok);
+    if(!ok || noweImie.trimmed().isEmpty())
+    {
+        if(ok && noweImie.trimmed().isEmpty())
+        {
+            QMessageBox::warning(this, "Pozostawiono puste pole", "Imię nie może być puste");
+        }
+        return;
+    }
+    studentDoEdycji->setImie(noweImie);
+
+    QString noweNazwisko = QInputDialog::getText(this, "Edycja studenta", "Podaj nowe nazwisko: ", QLineEdit::Normal, studentDoEdycji->getNazwisko(), &ok);
+    if(!ok || noweNazwisko.trimmed().isEmpty())
+    {
+        if(ok && noweNazwisko.trimmed().isEmpty())
+        {
+            QMessageBox::warning(this, "Pozostawiono puste pole", "Nazwisko nie może być puste");
+        }
+        return;
+    }
+    studentDoEdycji->setNazwisko(noweNazwisko);
+
+    QMessageBox::information(this, "Sukces!", "Dane studenta zostały pomyślnie zaktualizowane.");
+    refreshTabelaStudenci();
 
 }
 
-
+/*
 void MainWindow::on_pb_usun_student_clicked()
 {
-
+    bool ok;
+    QString studentId = QInputDialog::getInt(this, "Usuwanie studenta", "Podaj ID studenta do usunięcia", 0, 0, 5000, 1, &ok);
+    dataManager.studenci.removeAt(studentId);
 }
 
 

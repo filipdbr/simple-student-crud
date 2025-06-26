@@ -22,9 +22,9 @@ private slots:
 
     // sloty dla panelu "Studenci"
     void on_pb_dodaj_student_clicked();
+    void on_pb_edytuj_student_clicked();
 
     /*
-    void on_pb_edytuj_student_clicked();
     void on_pb_usun_student_clicked();
 
     // sloty dla panelu "Przedmioty"
