@@ -159,3 +159,126 @@ void DataManager::zapiszDane()
     zapiszOceny();
     zapiszPrzedmioty();
 }
+
+// studenci - pozostałe metody
+
+// pobierz listę studentów
+QList<Student> DataManager::getStudenci() const
+{
+    return studenci;
+}
+
+// dodaje studenta do listy studentów
+void DataManager::dodajStudenta(const Student& student)
+{
+    studenci.append(student);
+}
+
+// usuwa studenta z listy
+bool DataManager::usunStudenta(int studentId)
+{
+    for(int i = 0; i < studenci.size(); i++)
+    {
+        if(studenci.at(i).getId() == studentId)
+        {
+            studenci.removeAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+// wyszukuje studenta na liście
+Student* DataManager::znajdzStudenta(int studentId)
+{
+    for(Student& student : studenci)
+    {
+        if(student.getId() == studentId)
+        {
+            return &student;
+        }
+    }
+    return nullptr;
+}
+
+// przedmioty - implementacje
+
+// pobierz listę przedmiotów
+QList<Przedmiot> DataManager::getPrzedmioty() const
+{
+    return przedmioty;
+}
+
+// dodaje przedmiot do listy przedmiotów
+void DataManager::dodajPrzedmiot(const Przedmiot& przedmiot)
+{
+    przedmioty.append(przedmiot);
+}
+
+// usuwa przedmiot z listy
+bool DataManager::usunPrzedmiot(int przedmiotId)
+{
+    for(int i = 0; i < przedmioty.size(); i++)
+    {
+        if(przedmioty.at(i).getId() == przedmiotId)
+        {
+            przedmioty.removeAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+// wyszukuje przedmiot na liście
+Przedmiot* DataManager::znajdzPrzedmiot(int przedmiotId)
+{
+    for(Przedmiot& przedmiot : przedmioty)
+    {
+        if(przedmiot.getId() == przedmiotId)
+        {
+            return &przedmiot;
+        }
+    }
+    return nullptr;
+}
+
+
+// oceny - implementacje
+
+// pobierz listę ocen
+QList<Ocena> DataManager::getOceny() const
+{
+    return oceny;
+}
+
+// dodaje ocenę do listy ocen
+void DataManager::dodajOcena(const Ocena& ocena)
+{
+    oceny.append(ocena);
+}
+
+bool DataManager::usunOcena(int przedmiotId)
+{
+    for(int i = 0; i < oceny.size(); i++)
+    {
+        if(static_cast<int>(oceny.at(i).getPrzedmiotId()) == przedmiotId)
+        {
+            oceny.removeAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+// wyszukuje ocenę na liście po studentId i przedmiotId
+Ocena* DataManager::znajdzOcene(int studentId, int przedmiotId)
+{
+    for(Ocena& ocena : oceny)
+    {
+        if(ocena.getStudentId() == studentId && ocena.getPrzedmiotId() == przedmiotId)
+        {
+            return &ocena;
+        }
+    }
+    return nullptr;
+}

@@ -12,3 +12,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pb_dodaj_student_clicked()
+{
+
+}
+
