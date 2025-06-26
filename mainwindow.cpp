@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QVariant>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     // odśwież tabele przy starcie
     refreshTabelaStudenci();
     refreshTabelaPrzedmioty();
+    refreshListyRozwijane();
 
     /*
     refreshTabelaOceny();
-    refreshListyRozwijane();
     refreshPosumowanie();
     */
 }
@@ -120,7 +121,9 @@ void MainWindow::on_pb_edytuj_student_clicked()
     studentDoEdycji->setNazwisko(noweNazwisko);
 
     QMessageBox::information(this, "Sukces!", "Dane studenta zostały pomyślnie zaktualizowane.");
+
     refreshTabelaStudenci();
+    refreshListyRozwijane();
 
 }
 
@@ -142,6 +145,8 @@ void MainWindow::on_pb_usun_student_clicked()
     QMessageBox::information(this, "Sukces", "Student został usunięty");
 
     refreshTabelaStudenci();
+    refreshListyRozwijane();
+
     return;
 }
 
@@ -174,20 +179,66 @@ void MainWindow::on_pb_dodaj_przedmiot_clicked()
     QMessageBox::information(this, "Sukces!", "Dodano nowy przedmiot: " + nowyPrzedmiot.getNazwa());
 
     refreshTabelaPrzedmioty();
+    refreshListyRozwijane();
 }
 
-/*
 void MainWindow::on_pb_edytuj_przedmiot_clicked()
 {
+    bool ok;
+    int przedmiotId = QInputDialog::getInt(this, "Tryb edycji", "Podaj ID przedmiotu do edycji", 0, 0, 5000, 1, &ok);
+    if(!ok)
+    {
+        return;
+    }
 
+    Przedmiot* przedmiotDoEdycji = dataManager.znajdzPrzedmiot(przedmiotId);
+    if (!przedmiotDoEdycji)
+    {
+        QMessageBox::warning(this, "Brak wyników", "Przedmiot o podanym ID nie został znaleziony.");
+        return;
+    }
+
+    QString nowaNazwa = QInputDialog::getText(this, "Edycja przedmiotu", "Podaj nową nazwę: ", QLineEdit::Normal, przedmiotDoEdycji->getNazwa(), &ok);
+    if(!ok || nowaNazwa.trimmed().isEmpty())
+    {
+        if(ok && nowaNazwa.trimmed().isEmpty())
+        {
+            QMessageBox::warning(this, "Pozostawiono puste pole", "Pole nazwa przedmiotu nie może być puste");
+        }
+        return;
+    }
+    przedmiotDoEdycji -> setNazwa(nowaNazwa);
+
+    QMessageBox::information(this, "Sukces!", "Nazwa przedmiotu została zaktualizowana.");
+
+    refreshTabelaPrzedmioty();
+    refreshListyRozwijane();
 }
-
 
 void MainWindow::on_pb_usun_przedmiot_clicked()
 {
+    bool ok;
+    int przedmiotId = QInputDialog::getInt(this, "Usuwanie przedmiotu", "Podaj ID przedmiotu do usunięcia", 0, 0, 5000, 1, &ok);
+    if(!ok)
+    {
+        return;
+    }
 
+    bool usunieto = dataManager.usunPrzedmiot(przedmiotId);
+    if(!usunieto)
+    {
+        QMessageBox::warning(this, "Brak wyników", "Nie znaleziono przedmiotu ID " + QString::number(przedmiotId));
+        return;
+    }
+    QMessageBox::information(this, "Sukces", "Przedmiot został usunięty");
+
+    refreshTabelaPrzedmioty();
+    refreshListyRozwijane();
+
+    return;
 }
 
+/*
 
 void MainWindow::on_pb_dodaj_ocene_clicked()
 {
@@ -202,12 +253,6 @@ void MainWindow::on_pb_edytuj_ocene_clicked()
 
 
 void MainWindow::on_pb_usun_ocene_clicked()
-{
-
-}
-
-
-void MainWindow::on_pb_eksport_clicked()
 {
 
 }
@@ -265,5 +310,26 @@ void MainWindow::refreshTabelaPrzedmioty()
         // ustaw nazwę w drugiej kolumnie
         QTableWidgetItem *nazwaItem = new QTableWidgetItem(przedmiot.getNazwa());
         ui -> tabela_przedmioty -> setItem(i, 1, nazwaItem);
+    }
+}
+
+void MainWindow::refreshListyRozwijane()
+{
+    // czyszczenie list
+    ui->combobox_student->clear();
+    ui->combobox_przedmiot->clear();
+
+    // wypełnianie comboboxa studentów
+    QList<Student> listaStudentow = dataManager.getStudenci();
+    for (const Student& student : listaStudentow) {
+        QString displayText = student.getImie() + " " + student.getNazwisko() + " (ID: " + QString::number(student.getId()) + ")";
+        ui->combobox_student->addItem(displayText, student.getId());
+    }
+
+    // wypełnianie comboboxa przedmiotów
+    QList<Przedmiot> listaPrzedmiotow = dataManager.getPrzedmioty();
+    for (const Przedmiot& przedmiot : listaPrzedmiotow) {
+        QString displayText = przedmiot.getNazwa() + " (ID: " + QString::number(przedmiot.getId()) + ")";
+        ui->combobox_przedmiot->addItem(displayText, przedmiot.getId());
     }
 }

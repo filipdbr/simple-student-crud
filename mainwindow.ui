@@ -21,7 +21,7 @@
        <enum>QTabWidget::TabPosition::North</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_student">
        <attribute name="title">
@@ -163,6 +163,9 @@
             <property name="text">
              <string>Student:</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
            </widget>
           </item>
           <item>
@@ -172,6 +175,9 @@
            <widget class="QLabel" name="label_przedmiot">
             <property name="text">
              <string>Przedmiot:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -230,27 +236,6 @@
            <widget class="QPushButton" name="pb_usun_ocene">
             <property name="text">
              <string>Usuń ocenę</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_podsumowanie">
-       <attribute name="title">
-        <string>Podsumowanie</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <widget class="QTableWidget" name="tabela_podsumowanie"/>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QPushButton" name="pb_eksport">
-            <property name="text">
-             <string>Eksportuj do CSV</string>
             </property>
            </widget>
           </item>
