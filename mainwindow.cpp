@@ -13,15 +13,15 @@ MainWindow::MainWindow(QWidget *parent)
     dataManager.wczytajDane();
 
     // formatowanie dla zakładaki Studenci
-    ui->tabWidget->setCurrentIndex(0); // ustaw domyślną zakładkę na pierwszą od lewej strony
-    ui->tabela_studenci->verticalHeader()->setVisible(false); // usuń numerację wierszy
-    ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
-    ui->tabela_studenci->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
+    ui -> tabWidget -> setCurrentIndex(0); // ustaw domyślną zakładkę na pierwszą od lewej strony
+    ui -> tabela_studenci -> verticalHeader() -> setVisible(false); // usuń numerację wierszy
+    ui -> tabela_studenci -> horizontalHeader()-> setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
+    ui -> tabela_studenci -> horizontalHeader()-> setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
 
     // formatowanie dla zakładaki Przedmioty
-    ui -> tabela_przedmioty -> verticalHeader()->setVisible(false); // usuń numerację wierszy
-    ui -> tabela_przedmioty -> horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
-    ui -> tabela_przedmioty -> horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
+    ui -> tabela_przedmioty -> verticalHeader() -> setVisible(false); // usuń numerację wierszy
+    ui -> tabela_przedmioty -> horizontalHeader()-> setSectionResizeMode(QHeaderView::Stretch); // rozciągnij kolumny
+    ui -> tabela_przedmioty -> horizontalHeader()-> setSectionResizeMode(0, QHeaderView::ResizeToContents); // dopasuj pierwszą kolumnę do zawartości
 
     // odśwież tabele przy starcie
     refreshTabelaStudenci();
