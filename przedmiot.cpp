@@ -1,26 +1,24 @@
 #include "przedmiot.h"
 
 // implementacja konstruktora
-Przedmiot::Przedmiot(QString id, QString nazwa)
+Przedmiot::Przedmiot(int id, QString nazwa)
 {
-    this -> id = id;
+    przedmiotId = id;
     this -> nazwa = nazwa;
 }
 
 // implementacja metod
-QString Przedmiot::toStringCSV()
+int getId() const
 {
-    Qstring nazwaSformatowana = nazwa;
-    nazwaSformatowana.replace(",", "_");    // zastąp "," w celu uniknięcia uszkodzenia struktury pliku csv
-    return id + ", " + nazwaSformatowana;
+    return przedmiotId;
 }
 
-// optional w celu umożliwienia zwrócenia pustej wartości
-std::optional<Przemiot> Przedmiot::fromStringCSV(QString wiersz)
+QString getNazwa() const
 {
-    QStringList skladowa = wiersz.split(",", Qt::SkipEmptyParts);
-    if(skladowe.size() < 2){
-        return NULL;
-    }
-    return Przedmiot(skladowa[0].trimmed(), skladowa[1].trimmed);
+    return nazwa;
+}
+
+void setNazwa(QString nazwa);
+{
+    this -> nazwa = nazwa;
 }

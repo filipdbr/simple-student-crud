@@ -2,22 +2,28 @@
 #define PRZEDMIOT_H
 
 #include <QString>
+#include <QStringList>
+#include <optional>
 
 class Przedmiot
 {
 public:
 
-    // atrybuty
-    QString id;
-    QString nazwa;
-
     // konstruktor
-    Przedmiot(QString id, QString nazwa);
-    Przedmiot() = delete;
+    Przedmiot(int id, QString nazwa);
 
     // metody
-    Qstring toStringCSV();                      // zwraca string do zapisu w CSV
-    Przedmiot fromStringCSV(QString wiersz);    // tworzy obiekt na bazie danych z wiersza
+
+    // getters
+    int getId() const;
+    QString getNazwa() const;
+
+    // setters
+    void setNazwa(QString nazwa);
+
+private:
+    int przedmiotId;
+    QString nazwa;
 };
 
 #endif // PRZEDMIOT_H
