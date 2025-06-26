@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>System Obsługi Studentów</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tabStudents">
+       <attribute name="title">
+        <string>🎓 Studenci</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="studentTable">
+          <property name="columnCount">
+           <number>4</number>
+          </property>
+          <column>
+           <property name="text">
+            <string>ID</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Imię</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nazwisko</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Liczba przedmiotów</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="btnAddStudent">
+            <property name="text">
+             <string>Dodaj</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnEditStudent">
+            <property name="text">
+             <string>Edytuj</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnDeleteStudent">
+            <property name="text">
+             <string>Usuń</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnShowGrades">
+            <property name="text">
+             <string>Pokaż oceny</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabSubjects">
+       <attribute name="title">
+        <string>📚 Przedmioty</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableWidget" name="subjectTable">
+          <property name="columnCount">
+           <number>3</number>
+          </property>
+          <column>
+           <property name="text">
+            <string>ID</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nazwa</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Liczba studentów</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="btnAddSubject">
+            <property name="text">
+             <string>Dodaj</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnEditSubject">
+            <property name="text">
+             <string>Edytuj</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnDeleteSubject">
+            <property name="text">
+             <string>Usuń</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabGrades">
+       <attribute name="title">
+        <string>📝 Oceny</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Student:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="studentComboBox"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Przedmiot:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="subjectComboBox"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="gradeTable">
+          <property name="columnCount">
+           <number>4</number>
+          </property>
+          <column>
+           <property name="text">
+            <string>Student</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Przedmiot</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Ocena</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Zaliczony</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPushButton" name="btnAddGrade">
+            <property name="text">
+             <string>Dodaj ocenę</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnEditGrade">
+            <property name="text">
+             <string>Edytuj ocenę</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnDeleteGrade">
+            <property name="text">
+             <string>Usuń ocenę</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabSummary">
+       <attribute name="title">
+        <string>📊 Podsumowanie</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTableWidget" name="summaryTable"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="btnExport">
+            <property name="text">
+             <string>Eksportuj do CSV</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnStats">
+            <property name="text">
+             <string>Oblicz statystyki</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
