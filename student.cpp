@@ -4,8 +4,8 @@
 Student::Student(int id, QString imie, QString nazwisko)
 {
     studentId = id;
-    this -> imie = imie.toUpper();
-    this -> nazwisko = nazwisko.toUpper();
+    this -> imie = imie;
+    this -> nazwisko = nazwisko;
 }
 
 // implementacje metod

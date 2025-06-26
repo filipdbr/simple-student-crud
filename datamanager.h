@@ -23,6 +23,7 @@ public:
     void dodajStudenta(const Student& student);
     bool usunStudenta(int studentId);
     Student* znajdzStudenta(int studentId);
+    int wygenerujId() const;
 
     // przedmioty
     QList<Przedmiot> getPrzedmioty() const;

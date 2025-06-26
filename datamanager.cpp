@@ -10,11 +10,12 @@ DataManager::DataManager()
 // wczytywanie studentów
 void DataManager::wczytajStudentow()
 {
+    studenci.clear();
     // otwórz plik
-    QFile plikStudentow("studenci.csv");
+    QFile plikStudentow("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/studenci.csv");
 
     // otwórz w trybie do odczytu
-    if(plikStudentow.open(QIODevice::ReadOnly))
+    if(plikStudentow.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         // otwórz strumień wejściowy z pliku
         QTextStream strumienWejsciowy(&plikStudentow);
@@ -30,8 +31,8 @@ void DataManager::wczytajStudentow()
             {
                 studenci.append(Student(
                     elementyWiersza[0].toInt(),
-                    elementyWiersza[1],
-                    elementyWiersza[2]
+                    elementyWiersza[1].trimmed(),
+                    elementyWiersza[2].trimmed()
                 ));
             }
         }
@@ -43,8 +44,9 @@ void DataManager::wczytajStudentow()
 // wczytywanie przedmiotów
 void DataManager::wczytajPrzedmioty()
 {
-    QFile plikPrzedmioty("przedmioty.csv");
-    if(plikPrzedmioty.open(QIODevice::ReadOnly))
+    przedmioty.clear();
+    QFile plikPrzedmioty("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/przedmioty.csv");
+    if(plikPrzedmioty.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream strumienWejsciowy(&plikPrzedmioty);
         while(!strumienWejsciowy.atEnd())
@@ -54,8 +56,8 @@ void DataManager::wczytajPrzedmioty()
             {
                 przedmioty.append(Przedmiot(
                     elementyWiersza[0].toInt(),
-                    elementyWiersza[1]
-                ));
+                    elementyWiersza[1].trimmed()
+                    ));
             }
         }
         plikPrzedmioty.close();
@@ -65,8 +67,9 @@ void DataManager::wczytajPrzedmioty()
 // wczytywanie ocen
 void DataManager::wczytajOceny()
 {
-    QFile plikOcen("oceny.csv");
-    if(plikOcen.open(QIODevice::ReadOnly))
+    oceny.clear();
+    QFile plikOcen("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/oceny.csv");
+    if(plikOcen.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream strumienWejsciowy(&plikOcen);
         while(!strumienWejsciowy.atEnd())
@@ -98,7 +101,7 @@ void DataManager::wczytajDane()
 void DataManager::zapiszStudentow()
 {
     // otwórz plik wyjścia
-    QFile plikStudentow("studenci.csv");
+    QFile plikStudentow("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/studenci.csv");
 
     // korzystaj z trypu do zapisu i w trybie tekstowym
     if(plikStudentow.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -123,7 +126,7 @@ void DataManager::zapiszStudentow()
 // zapisywanie ocen
 void DataManager::zapiszOceny()
 {
-    QFile plikOceny("oceny.csv");
+    QFile plikOceny("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/oceny.csv");
     if(plikOceny.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream strumienWyjsciowy(&plikOceny);
@@ -139,7 +142,7 @@ void DataManager::zapiszOceny()
 // zapisywanie przedmiotów
 void DataManager::zapiszPrzedmioty()
 {
-    QFile plikPrzedmioty("przedmioty.csv");
+    QFile plikPrzedmioty("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/przedmioty.csv");
     if(plikPrzedmioty.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream strumienWyjsciowy(&plikPrzedmioty);
@@ -199,6 +202,19 @@ Student* DataManager::znajdzStudenta(int studentId)
         }
     }
     return nullptr;
+}
+
+int DataManager::wygenerujId() const
+{
+    int maxId = 0;
+    for(const Student& student : studenci)
+    {
+        if(student.getId() > maxId)
+        {
+            maxId = student.getId();
+        }
+    }
+    return maxId + 1;
 }
 
 // przedmioty - implementacje
