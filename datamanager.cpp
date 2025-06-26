@@ -79,7 +79,7 @@ void DataManager::wczytajOceny()
                     elementyWiersza[1].toInt(),
                     elementyWiersza[2].toDouble(),
                     static_cast<bool>(elementyWiersza[3].toInt())
-                );
+                    ));
             }
         }
         plikOcen.close();
@@ -95,7 +95,7 @@ void DataManager::wczytajDane()
 }
 
 // zapisywanie danych studentów
-void DataManger::zapiszStudentow()
+void DataManager::zapiszStudentow()
 {
     // otwórz plik wyjścia
     QFile plikStudentow("studenci.csv");
@@ -113,7 +113,7 @@ void DataManger::zapiszStudentow()
             const Student& aktualnyStudent = studenci.at(i);
 
             // dodaj do strumienia
-            strumienWyjsciowy << aktualnyStudent.getId << "," << aktualnyStudent.getImie() << "," << aktualnyStudent.getNazwisko() << "\n";
+            strumienWyjsciowy << aktualnyStudent.getId() << "," << aktualnyStudent.getImie() << "," << aktualnyStudent.getNazwisko() << "\n";
         }
         // zamknij plik wyjściowy
         plikStudentow.close();
@@ -140,7 +140,7 @@ void DataManager::zapiszOceny()
 void DataManager::zapiszPrzedmioty()
 {
     QFile plikPrzedmioty("przedmioty.csv");
-    if(plikPrzedmioty.open(QIODevice::WriteOnly | QIODevice::Text));
+    if(plikPrzedmioty.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream strumienWyjsciowy(&plikPrzedmioty);
         for(int i = 0; i < przedmioty.size(); i++)
