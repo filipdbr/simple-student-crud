@@ -301,11 +301,13 @@ void DataManager::dodajOcena(const Ocena& ocena)
     oceny.append(ocena);
 }
 
-bool DataManager::usunOcena(int przedmiotId)
+bool DataManager::usunOcena(int studentId, int przedmiotId)
 {
+    // Iteruj bezpośrednio po oryginalnej liście oceny
     for(int i = 0; i < oceny.size(); i++)
     {
-        if(static_cast<int>(oceny.at(i).getPrzedmiotId()) == przedmiotId)
+        if(oceny[i].getPrzedmiotId() == przedmiotId &&
+            oceny[i].getStudentId() == studentId)
         {
             oceny.removeAt(i);
             return true;
@@ -347,6 +349,10 @@ int DataManager::liczStudentow(int przedmiotId) const
     int liczbaSudentow = 0;
     for(const Ocena& ocena : oceny)
     {
-
+        if(ocena.getPrzedmiotId() == przedmiotId)
+        {
+            liczbaSudentow++;
+        }
     }
+    return liczbaSudentow;
 }

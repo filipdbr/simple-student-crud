@@ -33,11 +33,12 @@ public:
     Przedmiot* znajdzPrzedmiot(int przedmiotId);
     int wygenerujIdPrzedmiotu() const;
     bool czyIstnieje(QString nazwaPrzedmiotu) const;
+    int liczStudentow(int przedmiotId) const;
 
     // oceny
     QList<Ocena> getOceny() const;
     void dodajOcena(const Ocena& ocena);
-    bool usunOcena(int ocena);
+    bool usunOcena(int studentId, int przedmiotId);
     Ocena* znajdzOcene(int studentId, int przedmiotId);
 
 private:

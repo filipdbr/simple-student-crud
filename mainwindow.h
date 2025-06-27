@@ -33,11 +33,7 @@ private slots:
     // sloty dla panelu "Oceny"
     void on_pb_dodaj_ocene_clicked();
     void on_pb_edytuj_ocene_clicked();
-
-    /*
     void on_pb_usun_ocene_clicked();
-
-    */
 
     // funkcje do odświeżania danych
     void refreshTabelaStudenci();

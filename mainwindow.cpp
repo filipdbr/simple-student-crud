@@ -325,14 +325,26 @@ void MainWindow::on_pb_edytuj_ocene_clicked()
 
 }
 
-/*
-
 void MainWindow::on_pb_usun_ocene_clicked()
 {
+    int studentId = ui -> combobox_student -> currentData().toInt();
+    int przedmiotId = ui -> combobox_przedmiot -> currentData().toInt();
 
+    bool usunieto = dataManager.usunOcena(studentId, przedmiotId);
+
+    if(usunieto)
+    {
+        QMessageBox::information(this, "Sukces!", "Ocena została pomyślnie usunięta.");
+    }
+    else
+    {
+        QMessageBox::warning(this, "Błąd!", "Nie znaleziono takiej oceny");
+    }
+    refreshTabelaOceny();
+    refreshTabelaPrzedmioty();
+    refreshTabelaStudenci();
+    return;
 }
-
-*/
 
 void MainWindow::refreshTabelaStudenci()
 {
@@ -389,6 +401,10 @@ void MainWindow::refreshTabelaPrzedmioty()
         // ustaw nazwę w drugiej kolumnie
         QTableWidgetItem *nazwaItem = new QTableWidgetItem(przedmiot.getNazwa());
         ui -> tabela_przedmioty -> setItem(i, 1, nazwaItem);
+
+        // ustawi liczbę studentów w trzeciej kolumnie
+        QTableWidgetItem *liczbaStudentówItem = new QTableWidgetItem(QString::number(dataManager.liczStudentow(przedmiot.getId())));
+        ui -> tabela_przedmioty -> setItem(i, 2, liczbaStudentówItem);
     }
 }
 
