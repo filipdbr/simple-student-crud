@@ -24,6 +24,7 @@ public:
     bool usunStudenta(int studentId);
     Student* znajdzStudenta(int studentId);
     int wygenerujIdStudenta() const;
+    int liczPrzedmioty(int studentId) const;
 
     // przedmioty
     QList<Przedmiot> getPrzedmioty() const;

@@ -284,6 +284,7 @@ void MainWindow::on_pb_dodaj_ocene_clicked()
     QMessageBox::information(this, "Sukces!", "Ocena została pomyślnie dodana.");
 
     refreshTabelaOceny();
+    refreshTabelaStudenci();
 }
 
 void MainWindow::on_pb_edytuj_ocene_clicked()
@@ -359,6 +360,10 @@ void MainWindow::refreshTabelaStudenci()
         // Ustaw Nazwisko w trzeciej kolumnie
         QTableWidgetItem *nazwiskoItem = new QTableWidgetItem(student.getNazwisko());
         ui -> tabela_studenci -> setItem(i, 2, nazwiskoItem);
+
+        // ustaw liczbę ocen w czwartej kolumnie
+        QTableWidgetItem *liczbaPrzedmiotowItem = new QTableWidgetItem(QString::number(dataManager.liczPrzedmioty(student.getId())));
+        ui->tabela_studenci->setItem(i, 3, liczbaPrzedmiotowItem);
     }
 }
 

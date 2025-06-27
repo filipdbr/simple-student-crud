@@ -326,3 +326,27 @@ Ocena* DataManager::znajdzOcene(int studentId, int przedmiotId)
     }
     return nullptr;
 }
+
+// zlicza przedmioty studenta
+int DataManager::liczPrzedmioty(int studentId) const
+{
+    int liczbaPrzedmiotow = 0;
+    for(const Ocena& ocena : oceny)
+    {
+        if(ocena.getStudentId() == studentId)
+        {
+            liczbaPrzedmiotow ++;
+        }
+    }
+    return liczbaPrzedmiotow;
+}
+
+// zlicza studentów na przedmiocie
+int DataManager::liczStudentow(int przedmiotId) const
+{
+    int liczbaSudentow = 0;
+    for(const Ocena& ocena : oceny)
+    {
+
+    }
+}
