@@ -12,7 +12,7 @@ void DataManager::wczytajStudentow()
 {
     studenci.clear();
     // otwórz plik
-    QFile plikStudentow("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/studenci.csv");
+    QFile plikStudentow("C:/dziekanat/studenci.csv");
 
     // otwórz w trybie do odczytu
     if(plikStudentow.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -45,7 +45,7 @@ void DataManager::wczytajStudentow()
 void DataManager::wczytajPrzedmioty()
 {
     przedmioty.clear();
-    QFile plikPrzedmioty("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/przedmioty.csv");
+    QFile plikPrzedmioty("C:/dziekanat/przedmioty.csv");
     if(plikPrzedmioty.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream strumienWejsciowy(&plikPrzedmioty);
@@ -68,7 +68,7 @@ void DataManager::wczytajPrzedmioty()
 void DataManager::wczytajOceny()
 {
     oceny.clear();
-    QFile plikOcen("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/oceny.csv");
+    QFile plikOcen("C:/dziekanat/oceny.csv");
     if(plikOcen.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream strumienWejsciowy(&plikOcen);
@@ -101,7 +101,7 @@ void DataManager::wczytajDane()
 void DataManager::zapiszStudentow()
 {
     // otwórz plik wyjścia
-    QFile plikStudentow("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/studenci.csv");
+    QFile plikStudentow("C:/dziekanat/studenci.csv");
 
     // korzystaj z trypu do zapisu i w trybie tekstowym
     if(plikStudentow.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -126,7 +126,7 @@ void DataManager::zapiszStudentow()
 // zapisywanie ocen
 void DataManager::zapiszOceny()
 {
-    QFile plikOceny("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/oceny.csv");
+    QFile plikOceny("C:/dziekanat/oceny.csv");
     if(plikOceny.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream strumienWyjsciowy(&plikOceny);
@@ -142,7 +142,7 @@ void DataManager::zapiszOceny()
 // zapisywanie przedmiotów
 void DataManager::zapiszPrzedmioty()
 {
-    QFile plikPrzedmioty("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/przedmioty.csv");
+    QFile plikPrzedmioty("C:/dziekanat/przedmioty.csv");
     if(plikPrzedmioty.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream strumienWyjsciowy(&plikPrzedmioty);

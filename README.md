@@ -21,16 +21,18 @@ Aby zmienić ścieżki do plików, należy zmodyfikować następujące linie w p
 
 * Dla studentów:
     ```cpp
-    QFile plikStudentow("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/studenci.csv");
+    QFile plikStudentow("C:/dziekanat/studenci.csv");
     ```
 * Dla przedmiotów:
     ```cpp
-    QFile plikPrzedmioty("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/przedmioty.csv");
+    QFile plikPrzedmioty("C:/dziekanat/przedmioty.csv");
     ```
 * Dla ocen:
     ```cpp
-    QFile plikOcen("C:/Users/filip/OneDrive/Pulpit/test_dziekanat/oceny.csv");
+    QFile plikOcen("C:/dziekanat/oceny.csv");
     ```
+
+Należy zmodyfikować ścieżki zarówno w funkcjach zapisu jak i wczytywania (łączenie 6 funkcji).
 
 ## Wymagania i budowanie (CMake):
 
