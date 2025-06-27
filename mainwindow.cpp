@@ -28,10 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     refreshTabelaStudenci();
     refreshTabelaPrzedmioty();
     refreshListyRozwijane();
-
-    /*
     refreshTabelaOceny();
-    */
+
 }
 
 MainWindow::~MainWindow()
@@ -288,13 +286,45 @@ void MainWindow::on_pb_dodaj_ocene_clicked()
     refreshTabelaOceny();
 }
 
-/*
-
 void MainWindow::on_pb_edytuj_ocene_clicked()
 {
+    int studentId = ui -> combobox_student -> currentData().toInt();
+    int przedmiotId = ui -> combobox_przedmiot -> currentData().toInt();
+
+    if (studentId == 0)
+    {
+        QMessageBox::warning(this, "Błąd", "Proszę wybrać studenta z listy.");
+        return;
+    }
+    if (przedmiotId == 0)
+    {
+        QMessageBox::warning(this, "Błąd", "Proszę wybrać przedmiot z listy.");
+        return;
+    }
+
+    Ocena* ocenaDoEdycji = dataManager.znajdzOcene(studentId, przedmiotId);
+    if(!ocenaDoEdycji)
+    {
+        QMessageBox::warning(this, "Brak wyników", "Nie znaleziono takiej oceny");
+        return;
+    }
+
+    bool ok;
+    double nowaWartoscOceny = QInputDialog::getDouble(this, "Edycja oceny", "Wprowadź wartość nowej ocney", 2.0, 2.0, 5.0, 1, &ok);
+    if(!ok)
+    {
+        return;
+    }
+
+    ocenaDoEdycji -> setOcena(nowaWartoscOceny);
+
+    QMessageBox::information(this, "Sukces!", "Ocena została pomyślnie zaktualizowana.");
+
+    refreshTabelaOceny();
 
 }
 
+/*
 
 void MainWindow::on_pb_usun_ocene_clicked()
 {
