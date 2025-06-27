@@ -32,7 +32,15 @@ Aby zmienić ścieżki do plików, należy zmodyfikować następujące linie w p
     QFile plikOcen("C:/dziekanat/oceny.csv");
     ```
 
-Należy zmodyfikować ścieżki zarówno w funkcjach zapisu jak i wczytywania (łączenie 6 funkcji).
+Należy zmodyfikować ścieżki zarówno w funkcjach zapisu jak i wczytywania:
+```cpp
+void wczytajStudentow();
+void wczytajOceny();
+void wczytajPrzedmioty();
+void zapiszStudentow();
+void zapiszOceny();
+void zapiszPrzedmioty();
+```
 
 ## Wymagania i budowanie (CMake):
 
