@@ -30,19 +30,21 @@ private slots:
     void on_pb_edytuj_przedmiot_clicked();
     void on_pb_usun_przedmiot_clicked();
 
-    /*
     // sloty dla panelu "Oceny"
     void on_pb_dodaj_ocene_clicked();
+
+    /*
+
     void on_pb_edytuj_ocene_clicked();
     void on_pb_usun_ocene_clicked();
 
-    // funkcje do odświeżania danych
-    void refreshTabelaOceny();
-    void refreshPosumowanie();
     */
+
+    // funkcje do odświeżania danych
     void refreshTabelaStudenci();
     void refreshTabelaPrzedmioty();
     void refreshListyRozwijane();
+    void refreshTabelaOceny();
 
 private:
     Ui::MainWindow *ui;

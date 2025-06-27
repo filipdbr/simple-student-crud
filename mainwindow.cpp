@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     /*
     refreshTabelaOceny();
-    refreshPosumowanie();
     */
 }
 
@@ -42,7 +41,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// funkcja pomocnicza do znajowania największego id studenta
+// funkcja dodająca studenta do listy
 void MainWindow::on_pb_dodaj_student_clicked()
 {
     bool ok;
@@ -79,7 +78,7 @@ void MainWindow::on_pb_dodaj_student_clicked()
 
     // odśwież tabele
     refreshTabelaStudenci();
-    //refreshListyRozwijane();
+    refreshListyRozwijane();
 }
 
 void MainWindow::on_pb_edytuj_student_clicked()
@@ -238,13 +237,58 @@ void MainWindow::on_pb_usun_przedmiot_clicked()
     return;
 }
 
-/*
+
 
 void MainWindow::on_pb_dodaj_ocene_clicked()
 {
+    int studentId = ui -> combobox_student -> currentData().toInt();
+    int przedmiotId = ui -> combobox_przedmiot -> currentData().toInt();
 
+    // jeżeli brak wyboru
+    if (studentId == 0)
+    {
+        QMessageBox::warning(this, "Błąd", "Proszę wybrać studenta z listy.");
+        return;
+    }
+    if (przedmiotId == 0)
+    {
+        QMessageBox::warning(this, "Błąd", "Proszę wybrać przedmiot z listy.");
+        return;
+    }
+
+    // dodanie możliwe tylko jeżeli ocena nie istnieje
+    if (dataManager.znajdzOcene(studentId, przedmiotId) != nullptr)
+    {
+        QMessageBox::warning(this, "Błąd", "Ocena dla tego studenta i przedmiotu już istnieje. Użyj przycisku 'Edytuj ocenę', aby ją zmienić.");
+        return;
+    }
+
+    bool ok;
+    double wartoscOceny = QInputDialog::getDouble(this, "Dodaj ocenę","Wprowadź ocenę", 2.0, 2.0, 5.0, 1, &ok);
+
+    if(!ok)
+    {
+        return;
+    }
+
+    bool zaliczony;
+    if(wartoscOceny >= 3)
+    {
+        zaliczony = true;
+    } else
+    {
+        zaliczony = false;
+    }
+
+    Ocena nowaOcena(studentId, przedmiotId, wartoscOceny, zaliczony);
+    dataManager.dodajOcena(nowaOcena);
+
+    QMessageBox::information(this, "Sukces!", "Ocena została pomyślnie dodana.");
+
+    refreshTabelaOceny();
 }
 
+/*
 
 void MainWindow::on_pb_edytuj_ocene_clicked()
 {
@@ -331,5 +375,53 @@ void MainWindow::refreshListyRozwijane()
     for (const Przedmiot& przedmiot : listaPrzedmiotow) {
         QString displayText = przedmiot.getNazwa() + " (ID: " + QString::number(przedmiot.getId()) + ")";
         ui->combobox_przedmiot->addItem(displayText, przedmiot.getId());
+    }
+}
+
+void MainWindow::refreshTabelaOceny()
+{
+    // wyczyść tabelę
+    ui->tabla_oceny->setRowCount(0);
+
+    // pobierz listę ocen
+    QList<Ocena> listaOcen = dataManager.getOceny();
+
+    // ustaw nowy rozmiar tabeli
+    ui->tabla_oceny->setRowCount(listaOcen.size());
+
+    for(int i = 0; i < listaOcen.size(); i++)
+    {
+        const Ocena& ocena = listaOcen.at(i);
+
+        // znajdź studenta po ID
+        Student* student = dataManager.znajdzStudenta(ocena.getStudentId());
+        QString studentNazwa = "Nieznany student";
+        if(student) {
+            studentNazwa = student->getImie() + " " + student->getNazwisko();
+        }
+
+        // znajdź przedmiot po ID
+        Przedmiot* przedmiot = dataManager.znajdzPrzedmiot(ocena.getPrzedmiotId());
+        QString przedmiotNazwa = "Nieznany przedmiot";
+        if(przedmiot) {
+            przedmiotNazwa = przedmiot->getNazwa();
+        }
+
+        // kolumna 0: dane studenta
+        QTableWidgetItem *studentItem = new QTableWidgetItem(studentNazwa);
+        ui->tabla_oceny->setItem(i, 0, studentItem);
+
+        // kolumna 1: przedmiot
+        QTableWidgetItem *przedmiotItem = new QTableWidgetItem(przedmiotNazwa);
+        ui->tabla_oceny->setItem(i, 1, przedmiotItem);
+
+        // kolumna 2: ocena
+        QTableWidgetItem *ocenaItem = new QTableWidgetItem(QString::number(ocena.getOcena()));
+        ui->tabla_oceny->setItem(i, 2, ocenaItem);
+
+        // kolumna 3: zaliczony
+        QString zaliczonyText = ocena.czyZal() ? "Tak" : "Nie";
+        QTableWidgetItem *zaliczonyItem = new QTableWidgetItem(zaliczonyText);
+        ui->tabla_oceny->setItem(i, 3, zaliczonyItem);
     }
 }
