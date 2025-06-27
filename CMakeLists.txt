@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         przedmiot.h przedmiot.cpp
         ocena.h ocena.cpp
         datamanager.h datamanager.cpp
+        README.md
 
 
     )
